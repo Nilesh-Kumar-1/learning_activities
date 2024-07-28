@@ -108,12 +108,23 @@ class BinaryTree:
         elif value > self.value:
             return False
         else:
+            #1: A node with no children (leaf node).
+            # If the node we want to delete has no children, we simply delete it. The algorithm doesn’t need to reorganize the tree.
             if self.left_child is None and self.right_child is None and self == parent.left_child:
                 parent.left_child = None
                 self.clear_node()
             elif self.left_child is None and self.right_child is None and self == parent.right_child:
                 parent.right_child = None
                 self.clear_node()
+            #2: A node with just one child (left or right child).
+            #        |50|                              |50|
+            #      /      \                           /    \
+            #    |30|     |70|   (DELETE 30) --->   |20|   |70|
+            #   /            
+            # |20|
+            # In this case, our algorithm needs to make the parent of the node point to the child node. 
+            # If the node is the left child, we make the parent of the left child point to the child.
+            # If the node is the right child of its parent, we make the parent of the right child point to the child.
             elif self.left_child and self.right_child is None and self == parent.left_child:
                 parent.left_child = self.left_child
                 self.clear_node()
@@ -126,11 +137,32 @@ class BinaryTree:
             elif self.right_child and self.left_child is None and self == parent.right_child:
                 parent.right_child = self.right_child
                 self.clear_node()
+            #3: A node with two children.
+
+            #        |50|                              |50|
+            #      /      \                           /    \
+            #    |30|     |70|   (DELETE 30) --->   |40|   |70|
+            #   /    \                             /
+            # |20|   |40|                        |20|
+
+            # When the node has 2 children, we need to find the node with the minimum value, starting from the node’s right child. 
+            # We will put this node with minimum value in the place of the node we want to remove.
             else:
                 self.value = self.right_child.find_minimum_value()
                 self.right_child.remove_node(self.value, self)
 
             return True
+        
+    def clear_node(self):
+        self.value = None
+        self.left_child = None
+        self.right_child = None
+
+    def find_minimum_value(self):
+        if self.left_child:
+            return self.left_child.find_minimum_value()
+        else:
+            return self.value
 
 a_node = BinaryTree('a')
 a_node.insert_left('b')
