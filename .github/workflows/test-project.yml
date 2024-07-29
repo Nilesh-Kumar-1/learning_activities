@@ -18,8 +18,8 @@ jobs: #contains the list of steps
       #   run: cd "Github_actions/03 Finished Project"
       - name: check directory
         run: ls
-      # - name: Install dependencies
-      #   run: npm ci
-      # - name: Run tests
-      #   run: npm test
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
 
