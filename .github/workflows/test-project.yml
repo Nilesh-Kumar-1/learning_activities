@@ -11,7 +11,7 @@ jobs: #contains the list of steps
         with:
           node-version: 18
       - name: Install dependencies
-        run: cd Github_actions/03\ Finished\ Project/ | ls | npm ci
+        run: cd Github_actions/03 Finished Project| ls | npm ci
       - name: Run tests
         run: npm test
 
