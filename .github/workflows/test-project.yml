@@ -1,0 +1,17 @@
+name: Test Project # Name of the workflow
+on : [push, workflow_dispatch] # defines the trigger at which workflow triggers
+jobs: #contains the list of steps
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: cd Github_actions/03\ Finished\ Project/ | npm cli
+      - name: Run tests
+        run: npm test
+
