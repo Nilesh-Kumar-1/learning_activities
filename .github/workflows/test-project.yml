@@ -10,8 +10,10 @@ jobs: #contains the list of steps
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: change working directory
+        run: cd Github_actions/03 Finished Project
       - name: Install dependencies
-        run: cd Github_actions/03 Finished Project| ls | npm ci
+        run: npm ci
       - name: Run tests
         run: npm test
 
