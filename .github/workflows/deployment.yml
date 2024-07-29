@@ -27,6 +27,7 @@ jobs: #contains the list of steps
   # By default all the jobs run parallelly
 
   deploy:
+    needs: test # waits for test job to run. can also be written as  [job1,job2....]
     runs-on: ubuntu-latest
 
     defaults:
