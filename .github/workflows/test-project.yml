@@ -11,7 +11,7 @@ jobs: #contains the list of steps
         with:
           node-version: 18
       - name: change working directory
-        run: cd "Github_actions/03\ Finished\ Project/"
+        run: cd "Github_actions/03 Finished Project"
       - name: check directory
         run: ls
       # - name: Install dependencies
