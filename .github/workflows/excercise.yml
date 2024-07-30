@@ -1,5 +1,5 @@
 name: Lint, Test, and Deploy
-on: [push,workflow_dispatch]
+on: workflow_dispatch # [push, workflow_dispatch] # defines the trigger at which workflow triggers
 defaults:
     run:
       working-directory: Github_actions/05 Practice Project (Finished)
