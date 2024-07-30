@@ -29,6 +29,8 @@ jobs:
               uses: actions/setup-node@v3
               with:
                 node-version: 18
+            - name: Install dependencies
+              run: npm ci
             - name: Run test
               run: npm run test
             - name: Steps Completed
@@ -44,6 +46,8 @@ jobs:
                   uses: actions/setup-node@v3
                   with:
                         node-version: 18
+                - name: Install dependencies
+                  run: npm ci
                 - name: Run test
                   run: npm run build
                 - name: Steps Completed
