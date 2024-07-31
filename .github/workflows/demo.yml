@@ -3,12 +3,12 @@ on:
     pull_request:
       types: [opened, reopened]
 
-defaults:
-    run:
-        working-directory: Github_actions/01 Starting Project
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+        run:
+            working-directory: Github_actions/01 Starting Project
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
