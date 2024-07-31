@@ -3,15 +3,18 @@ on:
     pull_request:
       types: [opened, reopened]
     workflow_dispatch:
+defaults:
+    run:
+      working-directory: Github_actions/05 Practice Project (Finished)
 
 
 jobs: #contains the list of steps
   Deploy:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: Github_actions/03 Finished Project 
+    # defaults:
+    #   run:
+    #     working-directory: Github_actions/03 Finished Project 
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
