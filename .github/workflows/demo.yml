@@ -1,0 +1,30 @@
+name: Events Demo 1
+on:
+    pull_request:
+      types: [opened, reopened]
+    workflow_dispatch:
+defaults:
+    run:
+      working-directory: Github_actions/05 Practice Project (Finished)
+
+
+jobs: #contains the list of steps
+  Deploy:
+    runs-on: ubuntu-latest
+
+    # defaults:
+    #   run:
+    #     working-directory: Github_actions/03 Finished Project 
+    steps:
+      - name: Output event data
+        run: echo "${{ toJSON(github.event) }}"
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Test code
+        run: npm run test
+      - name: Build code
+        run: npm run build
+      - name: Deploy project
+        run: echo "Deploying..."
