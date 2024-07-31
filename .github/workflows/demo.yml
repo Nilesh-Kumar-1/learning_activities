@@ -5,12 +5,13 @@ on:
     workflow_dispatch:
 
 
-jobs:
-  deploy:
+jobs: #contains the list of steps
+  Deploy:
     runs-on: ubuntu-latest
+
     defaults:
-        run:
-            working-directory: Github_actions/01 Starting Project
+      run:
+        working-directory: Github_actions/03 Finished Project 
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
