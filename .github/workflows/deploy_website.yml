@@ -5,12 +5,13 @@ on:
       - main
 
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: Github_actions/01+Starting+Project/01 Starting Project
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Github_actions/01+Starting+Project
     steps:
       - name: Get code
         uses: actions/checkout@v3
