@@ -2,15 +2,16 @@ name: Deploy website
 on:
   push:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: Github_actions/01+Starting+Project/01 Starting Project
+
 jobs:
   test:
+    defaults:
+      run:
+        working-directory: Github_actions/01+Starting+Project/01 Starting Project
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -24,6 +25,9 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Github_actions/01+Starting+Project/01 Starting Project
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -44,8 +48,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
-        uses: actions/checkout@v3
+      # - name: Get code
+      #   uses: actions/checkout@v3
       - name: Get build artifacts
         uses: actions/download-artifact@v4
         with: 
