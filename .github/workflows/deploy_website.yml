@@ -46,5 +46,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Get build artifacts
+        uses: actions/download-artifact@v4
+        with: 
+          name: dist-files
+      - name: Check Directory
+        run: ls -a
       - name: Deploy
         run: echo "Deploying..."
