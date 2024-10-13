@@ -1,8 +1,8 @@
 name: Deploy website
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
 
   workflow_dispatch:
     
@@ -20,6 +20,7 @@ jobs:
         with:
           path: ~/.npm
           key: deps-node-modules-${{hashFiles('Github_actions/01+Starting+Project/01 Starting Project/package-lock.json')}}
+      # hashfiles create random file name based of the content in package-lock.json and its value vchanges if package-lock content changes 
       - name: Install dependencies
         run: npm ci
       - name: Lint code
