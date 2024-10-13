@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: deps-node-modules-${{hashFiles('*/package-lock.json')}}
+          key: deps-node-modules-${{hashFiles('Github_actions/01+Starting+Project/01 Starting Project/package-lock.json')}}
       - name: Install dependencies
         run: npm ci
       - name: Lint code
