@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-    #   - name: list
-    #     run: ls -a
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
@@ -38,7 +36,7 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: Github_actions/understanding_controlling_workflows/node_modules
           key: deps-node-modules-${{ hashFiles('Github_actions/understanding_controlling_workflows/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true'}}
@@ -65,7 +63,7 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: Github_actions/understanding_controlling_workflows/node_modules
           key: deps-node-modules-${{ hashFiles('Github_actions/understanding_controlling_workflows/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true'}}
