@@ -106,4 +106,4 @@ jobs:
 #      - name: Output Information
 #     runs: |
 #             echo "Something went wrong"
-#             echo "${{github}}"
+#             echo "${{toJSON(github)}}"
