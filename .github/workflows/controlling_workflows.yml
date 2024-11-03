@@ -8,8 +8,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     defaults:
-        run:
-          working-directory: Github_actions/understanding_controlling_workflows
+      run:
+        working-directory: Github_actions/understanding_controlling_workflows
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -26,8 +26,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     defaults:
-        run:
-          working-directory: Github_actions/understanding_controlling_workflows
+      run:
+        working-directory: Github_actions/understanding_controlling_workflows
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -52,8 +52,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     defaults:
-        run:
-          working-directory: Github_actions/understanding_controlling_workflows
+      run:
+        working-directory: Github_actions/understanding_controlling_workflows
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -88,3 +88,21 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+  report:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: |
+            echo "Something went wrong"
+            echo "${{github}}"
+
+
+#   report:
+#     if: failure()
+#     runs-on: ubuntu-latest
+#     steps:
+#      - name: Output Information
+#     runs: |
+#             echo "Something went wrong"
+#             echo "${{github}}"
