@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: list
-        run: ls -a
+    #   - name: list
+    #     run: ls -a
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
