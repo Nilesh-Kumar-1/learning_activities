@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     # defaults:
     #     run:
-    #       working-directory: Github_actions/understanding_controlling_workflows 1
+    #       working-directory: Github_actions/understanding_controlling_workflows
     steps:
       - name: Get build artifacts
         uses: actions/download-artifact@v3
