@@ -1,8 +1,8 @@
 name: Control Worflow Conbtinue on error
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   workflow_dispatch:
 jobs:
   lint:

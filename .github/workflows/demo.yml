@@ -1,7 +1,7 @@
 name: Events Demo 1
 on:
-    pull_request:
-      types: [opened, reopened]
+    # pull_request:
+    #   types: [opened, reopened]
     workflow_dispatch:
 defaults:
     run:
