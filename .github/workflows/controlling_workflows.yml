@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: list
+        run: ls -a
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
@@ -24,89 +26,89 @@ jobs:
         run: npm ci
       - name: Lint code
         run: npm run lint
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Github_actions/understanding_controlling_workflows
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: ${{ steps.cache.outputs.cache-hit != 'true'}}
-        run: npm ci
-      - name: Test code
-        id: run-tests
-        run: npm run test
-      - name: Upload test report
-        if: ${{ failure() && steps.run-tests.outcome == 'failure' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-report
-          path: test.json
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Github_actions/understanding_controlling_workflows
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: ${{ steps.cache.outputs.cache-hit != 'true'}}
-        run: npm ci
-      - name: Build website
-        id: build-website
-        run: npm run build
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-files
-          path: Github_actions/understanding_controlling_workflows/dist
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    # defaults:
-    #     run:
-    #       working-directory: Github_actions/understanding_controlling_workflows 1
-    steps:
-      - name: Get build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: dist-files
-      - name: Output contents
-        run: ls
-      - name: Deploy
-        run: echo "Deploying..."
-  report:
-    if: failure()
-    needs: [lint,deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output Information
-        run: |
-            echo "Something went wrong"
-            echo "${{toJSON(github)}}"
-
-
+#   test:
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: Github_actions/understanding_controlling_workflows
+#     steps:
+#       - name: Get code
+#         uses: actions/checkout@v3
+#       - name: Cache dependencies
+#         id: cache
+#         uses: actions/cache@v3
+#         with:
+#           path: node_modules
+#           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+#       - name: Install dependencies
+#         if: ${{ steps.cache.outputs.cache-hit != 'true'}}
+#         run: npm ci
+#       - name: Test code
+#         id: run-tests
+#         run: npm run test
+#       - name: Upload test report
+#         if: ${{ failure() && steps.run-tests.outcome == 'failure' }}
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: test-report
+#           path: test.json
+#   build:
+#     needs: test
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: Github_actions/understanding_controlling_workflows
+#     steps:
+#       - name: Get code
+#         uses: actions/checkout@v3
+#       - name: Cache dependencies
+#         id: cache
+#         uses: actions/cache@v3
+#         with:
+#           path: node_modules
+#           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+#       - name: Install dependencies
+#         if: ${{ steps.cache.outputs.cache-hit != 'true'}}
+#         run: npm ci
+#       - name: Build website
+#         id: build-website
+#         run: npm run build
+#       - name: Upload artifacts
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: dist-files
+#           path: Github_actions/understanding_controlling_workflows/dist
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     # defaults:
+#     #     run:
+#     #       working-directory: Github_actions/understanding_controlling_workflows 1
+#     steps:
+#       - name: Get build artifacts
+#         uses: actions/download-artifact@v3
+#         with:
+#           name: dist-files
+#       - name: Output contents
+#         run: ls
+#       - name: Deploy
+#         run: echo "Deploying..."
 #   report:
 #     if: failure()
+#     needs: [lint,deploy]
 #     runs-on: ubuntu-latest
 #     steps:
-#      - name: Output Information
-#     runs: |
+#       - name: Output Information
+#         run: |
 #             echo "Something went wrong"
 #             echo "${{toJSON(github)}}"
+
+
+# #   report:
+# #     if: failure()
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #      - name: Output Information
+# #     runs: |
+# #             echo "Something went wrong"
+# #             echo "${{toJSON(github)}}"
