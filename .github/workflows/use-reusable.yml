@@ -83,6 +83,12 @@ jobs:
          artifact-name: dist-files
     secrets:
       required-secerts: ${{ secrets.MONGODB_USERNAME }}
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo "${{needs.deploy.outputs.result-outputs}}"
   report:
     if: failure()
     needs: [lint,deploy]

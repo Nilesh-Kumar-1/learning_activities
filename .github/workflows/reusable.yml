@@ -7,13 +7,21 @@ on :
                 required: false
                 type: string
                 default: dist
+        outputs:
+          result-outputs:
+            description: result of the workflow
+            value: ${{ jobs.deploy.outputs.outcome }}
         secrets:
           required-secerts:
             description: required secrets
             required: false
 
+
+
 jobs:
     deploy:
+        outputs:
+          outcome: ${{steps.set-result.outputs.step-result}}
         runs-on: ubuntu-latest
         steps:
             - name: Get Code
@@ -26,3 +34,6 @@ jobs:
                 echo "${{secrets.required-secerts}}"
             - name: List code
               run: ls -a
+            - name: Set result output
+              id: set-result
+              run: echo "step-result=Success" >> $GITHUB_OUTPUT
