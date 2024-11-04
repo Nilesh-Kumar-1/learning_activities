@@ -1,5 +1,5 @@
 name: Reusable workflow
-on : 
+on :
     workflow_call:
         inputs:
             artifact-name:
@@ -7,15 +7,22 @@ on :
                 required: false
                 type: string
                 default: dist
+        secrets:
+          required-secerts:
+            description: required secrets
+            required: false
+
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Get Code
               uses: actions/download-artifact@v3
-              with: 
+              with:
                  name: ${{inputs.artifact-name}}
             - name: Output Information
-              run: echo "Deploying and uploading code......."
+              run: |
+                echo "Deploying and uploading code......."
+                echo "${{secrets.required-secerts}}"
             - name: List code
               run: ls -a

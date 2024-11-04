@@ -79,8 +79,10 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
-    with: 
+    with:
          artifact-name: dist-files
+    secrets:
+      required-secerts: ${{ secrets.MONGODB_USERNAME }}
   report:
     if: failure()
     needs: [lint,deploy]
