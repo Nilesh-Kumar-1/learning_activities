@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-report
-          path: test.json
+          path: Github_actions/understanding_controlling_workflows/test.json
   build:
     needs: test
     runs-on: ubuntu-latest

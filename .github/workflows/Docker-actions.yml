@@ -18,7 +18,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: deps-node-modules-${{ hashFiles('Github_actions/understanding_controlling_workflows/package-lock.json') }}
+          key: deps-node-modules-${{ hashFiles('Github_actions/Docker_section/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: deps-node-modules-${{ hashFiles('Github_actions/understanding_controlling_workflows/package-lock.json') }}
+          key: deps-node-modules-${{ hashFiles('Github_actions/Docker_section/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-report
-          path: test.json
+          path: Github_actions/Docker_section/test.json
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: deps-node-modules-${{ hashFiles('Github_actions/understanding_controlling_workflows/package-lock.json') }}
+          key: deps-node-modules-${{ hashFiles('Github_actions/Docker_section/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
