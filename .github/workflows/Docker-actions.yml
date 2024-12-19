@@ -43,9 +43,9 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Github_actions/Docker_section
+    # defaults:
+    #   run:
+    #     working-directory: Github_actions/Docker_section
     steps:
       - name: Output information
         env:
