@@ -9,6 +9,8 @@ env:
   CACHE_KEY: node-deps
   MONGODB_DB_NAME: gha-demo
 jobs:
+  container:
+    image: node:16
   test:
     environment: testing
     runs-on: ubuntu-latest
