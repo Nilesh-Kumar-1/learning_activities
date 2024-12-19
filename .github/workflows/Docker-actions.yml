@@ -12,8 +12,8 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
-    container:
-      image: node:16
+    # container:
+    #   image: node:16
     defaults:
       run:
         working-directory: Github_actions/Docker_section
@@ -22,7 +22,8 @@ jobs:
       # MONGODB_CLUSTER_ADDRESS: cluster0.iofzvbd.mongodb.net
       # MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       # MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-      MONGODB_CONNECTION_PROTOCOL: mongodb
+      # MONGODB_CONNECTION_PROTOCOL: mongodb # if we are using container
+      MONGODB_CONNECTION_PROTOCOL: 127.0.0.1:27017 # if we are not using container we have to provide ip address for networking
       MONGODB_CLUSTER_ADDRESS: mongodb
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
@@ -30,6 +31,8 @@ jobs:
     services:
       mongodb:
         image: mongo:5.0 # services always run inside a container
+        ports:
+          - 27017:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example
