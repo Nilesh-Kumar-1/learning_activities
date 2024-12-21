@@ -18,7 +18,7 @@ jobs:
         run: ls
       - name: test 2
         run: |
-          -d "/home/runner/work/learning_activities/learning_activities/.github/actions/cached-deps"
+          test -d "/home/runner/work/learning_activities/learning_activities/.github/actions/cached-deps"
       - name: load & cache dependencies
         uses: ./.github/actions/cached-deps
       # - name: Lint code
