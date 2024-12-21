@@ -22,6 +22,6 @@ runs:
       run: ls
       shell: bash
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching =! 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
       shell: bash
