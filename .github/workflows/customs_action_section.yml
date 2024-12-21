@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 jobs:
   lint:
-    # defaults:
-    #   run:
-    #     working-directory: Github_actions/Custom_action
+    defaults:
+      run:
+        working-directory: Github_actions/Custom_action
     runs-on: ubuntu-latest
     steps:
       - name: Get code
