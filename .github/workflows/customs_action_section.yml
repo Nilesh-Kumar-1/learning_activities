@@ -38,7 +38,7 @@ jobs:
       - name: load & cache dependencies
         uses: ./.github/actions/cached-deps
         with:
-          caching: true
+          caching: 'true'
       - name: Test code
         id: run-tests
         run: npm run test
@@ -60,7 +60,7 @@ jobs:
       - name: load & cache dependencies
         uses: ./.github/actions/cached-deps
         with:
-          caching: true
+          caching: 'true'
       - name: Build website
         run: npm run build
       - name: Upload artifacts
