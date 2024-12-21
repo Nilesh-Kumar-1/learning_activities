@@ -1,8 +1,9 @@
-name: custom action
+name: custom action 
 on:
   push:
     branches:
       - master
+      - dev
   workflow_dispatch:
 jobs:
   lint:
