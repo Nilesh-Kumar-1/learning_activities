@@ -9,6 +9,8 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('Github_actions/Custom_action/package-lock.json') }}
+    - name: testing
+      run: ls
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci
