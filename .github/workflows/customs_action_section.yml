@@ -22,7 +22,7 @@ jobs:
       - name: load & cache dependencies
         uses: ./.github/actions/cached-deps
         with:
-          caching: 'false'
+          caching: 'true'
       - name: Lint code
         run: npm run lint
   test:
