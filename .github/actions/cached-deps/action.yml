@@ -1,15 +1,15 @@
 name: "Get & Cache Dependencies"
-description: "Get and cache dependencies(via npm) for the current project".
+description: "Get and cache dependencies (via npm) for the current project."
 inputs:
   caching:
-    description: 'whether to cache dependencies or not'
+    description: "whether to cache dependencies or not"
     required: true
-    default: 'true'
+    default: "true"
 runs:
   using: "composite"
   steps:
     - name: Cache dependencies
-      if: inputs.caching == 'true'
+      if: ${{ inputs.caching }} == 'true'
       id: cache
       uses: actions/cache@v3
       with:
@@ -22,6 +22,6 @@ runs:
     #   run: ls
     #   shell: bash
     # - name: Install dependencies
-    #   if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
+    #   if: ${{ steps.cache.outputs.cache-hit }} != 'true' || ${{ inputs.caching }} != 'true'
     #   run: npm ci
     #   shell: bash
