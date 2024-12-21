@@ -10,7 +10,7 @@ runs:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('Github_actions/Custom_action/package-lock.json') }}
     - name: change directory
-      run: cd Github_actions/Custom_action/
+      run: cd ./Github_actions/Custom_action/
       shell: bash
     - name: testing
       run: ls
