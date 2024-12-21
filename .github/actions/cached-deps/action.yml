@@ -15,13 +15,13 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('Github_actions/Custom_action/package-lock.json') }}
-    # - name: change directory
-    #   run: cd ./Github_actions/Custom_action/
-    #   shell: bash
-    # - name: testing
-    #   run: ls
-    #   shell: bash
-    # - name: Install dependencies
-    #   if: ${{ steps.cache.outputs.cache-hit }} != 'true' || ${{ inputs.caching }} != 'true'
-    #   run: npm ci
-    #   shell: bash
+    - name: change directory
+      run: cd ./Github_actions/Custom_action/
+      shell: bash
+    - name: testing
+      run: ls
+      shell: bash
+    - name: Install dependencies
+      if: ${{ steps.cache.outputs.cache-hit }} != 'true' || ${{ inputs.caching }} != 'true'
+      run: npm ci
+      shell: bash
