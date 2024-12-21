@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 jobs:
   lint:
-    defaults:
-      run:
-        working-directory: Github_actions/Custom_action
+    # defaults:
+    #   run:
+    #     working-directory: Github_actions/Custom_action
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -19,6 +19,8 @@ jobs:
       - name: test 2
         run: |
           test -d "/home/runner/work/learning_activities/learning_activities/.github/actions/cached-deps"
+      - name: change directory
+        run: cd ./Github_actions/Custom_action/
       - name: load & cache dependencies
         uses: ./.github/actions/cached-deps
       - name: Lint code
