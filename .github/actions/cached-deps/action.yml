@@ -7,7 +7,7 @@ inputs:
     default: "true"
 outputs:
   used-cache:
-    description:"whether cache or not"
+    description: "whether cache or not"
     value: ${{ steps.install.outputs.cachel}}
 runs:
   using: "composite"
