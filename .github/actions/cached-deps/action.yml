@@ -5,6 +5,10 @@ inputs:
     description: "whether to cache dependencies or not"
     required: true
     default: "true"
+outputs:
+  used-cache:
+    description:"whether cache or not"
+    value: ${{ steps.install.outputs.cachel}}
 runs:
   using: "composite"
   steps:
@@ -15,13 +19,16 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('Github_actions/Custom_action/package-lock.json') }}
-    - name: change directory
-      run: cd ./Github_actions/Custom_action/
-      shell: bash
-    - name: testing
-      run: ls
-      shell: bash
+    # - name: change directory
+    #   run: cd ./Github_actions/Custom_action/
+    #   shell: bash
+    # - name: testing
+    #   run: ls
+    #   shell: bash
     - name: Install dependencies
+      id: install
       if: ${{ steps.cache.outputs.cache-hit }} != 'true' || ${{ inputs.caching }} != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "cache=${{inputs.caching}}" >> $GITHUB_OUTPUT
       shell: bash

@@ -20,9 +20,12 @@ jobs:
         run: |
           test -d "/home/runner/work/learning_activities/learning_activities/.github/actions/cached-deps"
       - name: load & cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-deps
         with:
           caching: 'true'
+      - name: Output information
+        run: echo "cache used - ${{ steps.cache-deps.outputs.used-cache}}"
       - name: Lint code
         run: npm run lint
   test:
