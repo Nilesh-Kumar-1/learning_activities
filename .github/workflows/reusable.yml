@@ -16,8 +16,6 @@ on :
             description: required secrets
             required: false
 
-
-
 jobs:
     deploy:
         outputs:
