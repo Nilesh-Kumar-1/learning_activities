@@ -119,8 +119,9 @@ class DoubleLinkedList:
         return True
     def remove_by_value(self, data):
         if not self.head:
-            return False
+            raise ValueError("List is empty")
         current = self.head
+        length = self.length
         while current:
             if current.data == data:
                 if self.length == 1:
@@ -132,8 +133,11 @@ class DoubleLinkedList:
                 elif current == self.tail:
                     self.remove(self.length - 1)
                     return True
-                current.prev.next = current.next 
+                current.prev.next = current.next
+                current.next.prev = current.prev
+                self.length -= 1
             current = current.next
+        return True if self.length < length else self._raise_error(ValueError(f"{data} not found in the list"))
     def insert(self, data, index):
         if index < 0 or index > self.length:
             return False
@@ -175,13 +179,33 @@ class DoubleLinkedList:
         self.length += 1
         return True
     def pop_first(self):
-        pass
+        if not self.head:
+            return None
+        data = self.head.data
+        if self.length == 1:
+            self.remove_all()
+            return data
+        self.head = self.head.next
+        self.head.prev = None
+        self.length -= 1
+        return data
     def pop_last(self):
-        pass
+        if not self.tail:
+            return None
+        data = self.tail.data
+        if self.length == 1:
+            self.remove_all()
+            return data
+        self.tail = self.tail.prev
+        self.tail.next = None
+        self.length -= 1
+        return data
     def remove_all(self):
         self.head = None
         self.tail = None
         self.length = 0
+    def _raise_error(self,error_message):
+        raise error_message
 sol = DoubleLinkedList()
 for i in range(5):
     sol.append(i)
@@ -190,13 +214,13 @@ for i in range(6, 10):
 print(sol)
 sol.remove_by_value(4)
 print(sol)
-# sol.remove_by_value(9)
-# print(sol)
-# sol.remove_by_value(0)
-# print(sol)
+sol.remove_by_value(9)
+print(sol)
+sol.remove_by_value(0)
+print(sol)
 # sol.remove_by_value(10)
-# print(sol)
-# sol = DoubleLinkedList()
+print(sol)
+sol = DoubleLinkedList()
 # sol.remove_by_value(10)  # Should not raise an error
 sol.insert_into_sorted(18)
 print(sol) 
@@ -206,3 +230,9 @@ sol.insert_into_sorted(5.5)
 print(sol) 
 sol.insert_into_sorted(6.5)
 print(sol)  # Should print "List is empty"
+print(sol.pop_first())  # Should return 0
+print(sol)  # Should print the list without 0
+# sol.remove_by_value(100) # raise error
+
+print(sol.pop_last())  # Should return 18
+print(sol)  # Should print the list without 18
