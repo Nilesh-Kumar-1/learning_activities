@@ -84,29 +84,46 @@
 
     <div class="container">
         <h2>Flooring Calculator</h2>
+         <div class="option-box">
+            <label>Do you know the actual area?</label>
+            <select id="knowArea" onchange="toggleInputs()">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
 
-        <label>Length (Feet & Inches):</label>
-        <input type="number" id="lengthFeet" placeholder="Feet">
-        <input type="number" id="lengthInches" placeholder="Inches"><br>
+        <div id="areaInputs">
+            <label>Enter Area (sq. ft):</label>
+            <input type="number" id="actualArea" placeholder="Enter actual area">
+        </div>
 
-        <label>Width (Feet & Inches):</label>
-        <input type="number" id="widthFeet" placeholder="Feet">
-        <input type="number" id="widthInches" placeholder="Inches"><br>
+         <div id="lengthWidthInputs">
+            <label>Length (Feet & Inches):</label>
+            <input type="number" id="lengthFeet" placeholder="Feet">
+            <input type="number" id="lengthInches" placeholder="Inches"><br>
 
-        <label>Area to reduce:</label>
-        <input type="number" id="areaToReduce" placeholder="Area in sqft">
+            <label>Width (Feet & Inches):</label>
+            <input type="number" id="widthFeet" placeholder="Feet">
+            <input type="number" id="widthInches" placeholder="Inches"><br>
 
+            <label>Area to reduce:</label>
+            <input type="number" id="areaToReduce" placeholder="Area in sqft">
 
-        <button onclick="calculateArea()">Calculate Area</button>
-        <div class="result" id="result">Area: -- sq. ft</div>
+             <button onclick="calculateArea()">Calculate Area</button>
+            <div class="result" id="result">Area: -- sq. ft</div>
 
-        <button onclick="actualArea()">Actual Area</button>
-        <div class="result" id="actualResult">Area: -- sq. ft</div>
+            <button onclick="actualArea()">Actual Area</button>
+            <div class="result" id="actualResult">Area: -- sq. ft</div>
 
+        </div>
 
 
         <div class="grid-container">
             <div class="grid-item">
+                <form id="ratioForm">
+                    <label for="primerRatioInput">Enter Primer Ratio:</label>
+                    <input type="text" id="primerRatioInput" name="ratio" value = "2:1" placeholder="resin : hardener e.g. 2:1">
+                </form>
                 <button onclick="primer()">Epoxy Primer</button>
                 <div class="result">
                     <p id="primerValue">Total Primer: -- Kg</p>
@@ -116,6 +133,12 @@
             </div>
 
             <div class="grid-item">
+                <form id="ratioForm">
+                    <label for="screedRatioInput">Enter Screed Ratio:</label>
+                    <input type="text" id="screedRatioInput" name="ratio" value = "2:1" placeholder="filler : epoxy e.g. 2:1">
+                    <label for="screedEpoxyRatioInput">Enter Screed Ratio:</label>
+                    <input type="text" id="screedEpoxyRatioInput" name="ratio" value = "2:1" placeholder="filler : epoxy e.g. 2:1">
+                </form>
                 <button onclick="Screed()">Epoxy Screed</button>
                 <div class="result">
                     <p id="screedValue">Total Screed: -- Kg</p>
@@ -127,13 +150,19 @@
             </div>
 
             <div class="grid-item">
+                <form id="ratioForm">
+                    <label for="screedRatioInput">Enter Screed Ratio:</label>
+                    <input type="text" id="screedRatioInput" name="ratio" value = "2:1" placeholder="filler : epoxy e.g. 2:1">
+                    <label for="screedEpoxyRatioInput">Enter Screed Ratio:</label>
+                    <input type="text" id="screedEpoxyRatioInput" name="ratio" value = "2:1" placeholder="filler : epoxy e.g. 2:1">
+                </form>
                 <button onclick="calculateEpoxyTopcoat()">Epoxy Topcoat</button>
                 <div class="result">
                     <p id="totalEpoxyValue">Total Epoxy: -- Kg</p>
                     <p id="epoxyHardenerValue">Epoxy Hardener: -- Kg</p>
                     <p id="epoxyPartAValue">Epoxy Part A: -- Kg</p>
-                    <p id="epoxyResinValue">Epoxy Resin: -- Kg</p>
-                    <p id="epoxyFillerValue">Epoxy Filler: -- Kg</p>
+                    <!-- <p id="epoxyResinValue">Epoxy Resin: -- Kg</p>
+                    <p id="epoxyFillerValue">Epoxy Filler: -- Kg</p> -->
                 </div>
             </div>
 
@@ -148,6 +177,15 @@
         </div>
     </div>
     <script>
+        let choice = "no"// Setting default choice as no
+        document.getElementById("areaInputs").style.display = choice === "yes" ? "block" : "none";
+        document.getElementById("lengthWidthInputs").style.display = choice === "no" ? "block" : "none";
+
+        function toggleInputs() {
+            let choice = document.getElementById("knowArea").value;
+            document.getElementById("areaInputs").style.display = choice === "yes" ? "block" : "none";
+            document.getElementById("lengthWidthInputs").style.display = choice === "no" ? "block" : "none";
+        }
         function calculateArea() {
             let lengthFeet = parseFloat(document.getElementById("lengthFeet").value) || 0;
             let lengthInches = parseFloat(document.getElementById("lengthInches").value) || 0;
@@ -159,46 +197,72 @@
 
             let areaSquareFeet = (totalLengthInches * totalWidthInches) / 144;
 
-            document.getElementById("result").innerText = `Area: ${areaSquareFeet.toFixed(4)} sq. ft`;
+            document.getElementById("result").innerText = `Area: ${areaSquareFeet.toFixed(2)} sq. ft`;
             return areaSquareFeet
         }
 
         function actualArea() {
-            let areaToReduce = parseFloat(document.getElementById("areaToReduce").value) || 0;
-            let totalArea = calculateArea()-areaToReduce;
-            document.getElementById("actualResult").innerText = `Area: ${totalArea.toFixed(4)} sq. ft`;
+            let choice = document.getElementById("knowArea").value;
+            let totalArea;
+
+            if (choice === "yes") {
+                totalArea = parseFloat(document.getElementById("actualArea").value) || 0;
+                console.log(totalArea)
+            }
+            else{
+                let areaToReduce = parseFloat(document.getElementById("areaToReduce").value) || 0;
+                totalArea = calculateArea()-areaToReduce;
+                document.getElementById("actualResult").innerText = `Area: ${totalArea.toFixed(2)} sq. ft`;
+            }
             return totalArea
         }
-        let areaToReduce = parseFloat(document.getElementById("areaToReduce").value) || 0;
-        let totalArea = calculateArea()-areaToReduce;
-        console.log("Stored Area:", calculatedArea);
+        // let areaToReduce = parseFloat(document.getElementById("areaToReduce").value) || 0;
+        // let totalArea = calculateArea()-areaToReduce;
+        // console.log("Stored Area:", calculatedArea);
 
         function primer(){
             let area = actualArea();
-            let totalPrimer = area * 0.015;
-            let resin = (2/3)*totalPrimer;
-            let hardener = (1/3)*totalPrimer;
+            input = document.getElementById("primerRatioInput").value.trim();
+            const parts = input.split(":");
+            let resinPart = parts[0];
+            let hardenerPart = parts[1];
 
-            document.getElementById("primerValue").innerText = `Total Primer: ${totalPrimer.toFixed(4)} Kg`;
-            document.getElementById("resinValue").innerText = `Resin: ${resin.toFixed(4)} Kg`;
-            document.getElementById("hardenerValue").innerText = `Hardener: ${hardener.toFixed(4)} Kg`;
+            let totalPrimer = area * 0.015;
+            let resin = (resinPart/(resinPart + hardenerPart))*totalPrimer;
+            let hardener = (hardenerPart/(resinPart + hardenerPart))*totalPrimer;
+            // console.log(resinPart/(resinPart + hardenerPart),hardenerPart/(resinPart + hardenerPart))
+
+            document.getElementById("primerValue").innerText = `Total Primer: ${totalPrimer.toFixed(2)} Kg`;
+            document.getElementById("resinValue").innerText = `Resin: ${resin.toFixed(2)} Kg`;
+            document.getElementById("hardenerValue").innerText = `Hardener: ${hardener.toFixed(2)} Kg`;
 
         }
 
         function Screed(){
             let area = actualArea();
+            input = document.getElementById("primerRatioInput").value.trim();
+            screedExpoxyInput = document.getElementById("screedEpoxyRatioInput").value.trim();
+            const parts = input.split(":");
+            const screedExpoxyInputparts = input.split(":");
+
+            let fillerPart = parts[0];
+            let epoxyPart = parts[1];
+            let screedResinPart = screedExpoxyInputparts[0];
+            let screedHardenerPart = screedExpoxyInputparts[1];
+
+
             let totalScreed = area * 0.3;
-            let filler = (2/3)*totalScreed;
-            let epoxy = (1/3)*totalScreed;
-            let screedResin = (3/4)*epoxy;
-            let screedHardener = (1/4)*epoxy;
+            let filler = (fillerPart/(fillerPart + epoxyPart))*totalScreed;
+            let epoxy = (epoxyPart/(fillerPart + epoxyPart))*totalScreed;
+            let screedResin = (screedResinPart/(screedHardenerPart + screedResinPart))*epoxy;
+            let screedHardener = (screedHardenerPart/(screedHardenerPart + screedResinPart))*epoxy;
 
             // Update the values in the HTML
-            document.getElementById("screedValue").innerText = `Total Screed: ${totalScreed.toFixed(4)} Kg`;
-            document.getElementById("fillerValue").innerText = `Filler: ${filler.toFixed(4)} Kg`;
-            document.getElementById("epoxyValue").innerText = `Epoxy: ${epoxy.toFixed(4)} Kg`;
-            document.getElementById("screedResinValue").innerText = `Screed Resin: ${screedResin.toFixed(4)} Kg`;
-            document.getElementById("screedHardenerValue").innerText = `Screed Hardener: ${screedHardener.toFixed(4)} Kg`;
+            document.getElementById("screedValue").innerText = `Total Screed: ${totalScreed.toFixed(2)} Kg`;
+            document.getElementById("fillerValue").innerText = `Filler: ${filler.toFixed(2)} Kg`;
+            document.getElementById("epoxyValue").innerText = `Epoxy: ${epoxy.toFixed(2)} Kg`;
+            document.getElementById("screedResinValue").innerText = `Screed Resin: ${screedResin.toFixed(2)} Kg`;
+            document.getElementById("screedHardenerValue").innerText = `Screed Hardener: ${screedHardener.toFixed(2)} Kg`;
 
         }
 
@@ -206,16 +270,16 @@
             let area = actualArea();
             let totalEpoxy = area * 0.125;
             let epoxyHardener = (1/4) * totalEpoxy;
-            let epoxyPartA = (3/4) * totalEpoxy;
+            let epoxyPartA = (3/4) * totalEpoxy; // raisn
             let epoxyResin = 0.5 * epoxyPartA;
             let epoxyFiller = 0.5 * epoxyPartA;
 
             // Update the values in the HTML
-            document.getElementById("totalEpoxyValue").innerText = `Total Epoxy: ${totalEpoxy.toFixed(4)} Kg`;
-            document.getElementById("epoxyHardenerValue").innerText = `Epoxy Hardener: ${epoxyHardener.toFixed(4)} Kg`;
-            document.getElementById("epoxyPartAValue").innerText = `Epoxy Part A: ${epoxyPartA.toFixed(4)} Kg`;
-            document.getElementById("epoxyResinValue").innerText = `Epoxy Resin: ${epoxyResin.toFixed(4)} Kg`;
-            document.getElementById("epoxyFillerValue").innerText = `Epoxy Filler: ${epoxyFiller.toFixed(4)} Kg`;
+            document.getElementById("totalEpoxyValue").innerText = `Total Epoxy: ${totalEpoxy.toFixed(2)} Kg`;
+            document.getElementById("epoxyHardenerValue").innerText = `Epoxy Part B Hardener: ${epoxyHardener.toFixed(2)} Kg`;
+            document.getElementById("epoxyPartAValue").innerText = `Epoxy Part A Rasin: ${epoxyPartA.toFixed(2)} Kg`;
+            // document.getElementById("epoxyResinValue").innerText = `Epoxy Resin: ${epoxyResin.toFixed(2)} Kg`;
+            // document.getElementById("epoxyFillerValue").innerText = `Epoxy Filler: ${epoxyFiller.toFixed(2)} Kg`;
         }
 
         function calculateEpoxyMetallic() {
@@ -225,9 +289,9 @@
             let hardenerEpoxyMetallic = (1/4) * totalEpoxyMetallic; // Correcting your previous reference to totalEpoxy
 
             // Update the values in the HTML
-            document.getElementById("totalEpoxyMetallicValue").innerText = `Total Epoxy Metallic: ${totalEpoxyMetallic.toFixed(4)} Kg`;
-            document.getElementById("resinEpoxyMetallicValue").innerText = `Resin Epoxy Metallic: ${resinEpoxyMetallic.toFixed(4)} Kg`;
-            document.getElementById("hardenerEpoxyMetallicValue").innerText = `Hardener Epoxy Metallic: ${hardenerEpoxyMetallic.toFixed(4)} Kg`;
+            document.getElementById("totalEpoxyMetallicValue").innerText = `Total Epoxy Metallic: ${totalEpoxyMetallic.toFixed(2)} Kg`;
+            document.getElementById("resinEpoxyMetallicValue").innerText = `Resin Epoxy Metallic: ${resinEpoxyMetallic.toFixed(2)} Kg`;
+            document.getElementById("hardenerEpoxyMetallicValue").innerText = `Hardener Epoxy Metallic: ${hardenerEpoxyMetallic.toFixed(2)} Kg`;
         }
     </script>
 
