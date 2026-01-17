@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from router import chat, similarity, storage_account
+from router import chat, similarity, storage_account, extract
 
 app = FastAPI(
     title="My Gen AI Learning Application",
@@ -10,4 +10,5 @@ app = FastAPI(
 app.include_router(chat.router)
 app.include_router(similarity.router)
 app.include_router(storage_account.router)
+app.include_router(extract.router)
 

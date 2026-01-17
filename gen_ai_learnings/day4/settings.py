@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     AZURE_STORAGE_ACCOUNT_NAME: str
     AZURE_STORAGE_ACCOUNT_CONTAINER_NAME: str
     ALLOWED_FILE_EXTENTION: list[str]
+    AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT: str
+    AZURE_DOCUMENT_INTELLIGENCE_KEY: SecretStr
+    AZURE_STORAGE_ACCOUNT_KEY: SecretStr
 
 
     model_config = SettingsConfigDict(env_file=".env")
+
+    def __str__(self):
+        print(self.AZURE_CLIENT_ID)

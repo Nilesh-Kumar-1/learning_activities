@@ -29,7 +29,7 @@ async def upload_to_storage(settings: Annotated[Settings, Depends(get_settings)]
         storage_client = get_storage_account_clients(setting=settings)
         for file in files:
             extension = file.filename.rsplit(".", 1)[-1].lower() #type: ignore
-            if extension not in settings.ALLOWED_FILE_EXTENTION:
+            if extension in set(settings.ALLOWED_FILE_EXTENTION):
                 blob_name = f"{uuid.uuid4()}_{file.filename}"
 
                 # Create a blob client using the local file name as the name for the blob

@@ -1,13 +1,7 @@
 import sys
 from azure.identity import ClientSecretCredential
 from azure.storage.blob import BlobServiceClient
-from functools import lru_cache
 from settings import Settings
-
-
-@lru_cache()
-def get_settings() -> Settings:
-    return Settings()  # type: ignore
 
 def get_azure_credential(settings: Settings) -> ClientSecretCredential:
     """Authenticate to Azure using a service principal

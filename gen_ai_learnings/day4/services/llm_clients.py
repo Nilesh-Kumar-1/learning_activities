@@ -2,7 +2,7 @@ from openai import OpenAI
 from settings import Settings
 from azure.ai.inference import EmbeddingsClient
 from azure.core.credentials import AzureKeyCredential
-import os
+from azure.ai.documentintelligence import DocumentIntelligenceClient
 
 def get_openai_client(settings: Settings) -> OpenAI:
     """Creates a OpenAI Client
@@ -42,3 +42,22 @@ def get_openai_embedding_client(settings: Settings) -> EmbeddingsClient:
         print("Error creating OpenAI embedding client:", e)
         raise
     return model
+
+def get_document_intelligence_client(settings: Settings) -> DocumentIntelligenceClient:
+    """Create a Document Intelligence Client
+
+    Keyword arguments:
+    settings(Settings) : Application settings containing OpenAI configuration
+    Return: 
+    client(DocumentIntelligenceClient) : Configured DocumentIntelligenceClient client instance for Document Intelligence
+    """
+    try:
+        document_intelligence_client  = DocumentIntelligenceClient(
+            endpoint=settings.AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT,
+            credential=AzureKeyCredential(settings.AZURE_DOCUMENT_INTELLIGENCE_KEY.get_secret_value())
+            )
+        print("created doc int client")
+    except Exception as e:
+        print(f"Error occured while creating document intelligence client - {e}")
+        raise
+    return document_intelligence_client
