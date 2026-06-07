@@ -6,8 +6,8 @@ from settings import Settings
 from services.llm_clients import get_openai_embedding_client
 
 router = APIRouter(
-    prefix="/similarity",
-    tags=["similarity"]
+    prefix="/embdeding",
+    tags=["embdeding"]
 )
 
 @lru_cache
